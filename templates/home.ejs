@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@500&family=Nunito:ital@0;1&display=swap">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-image: url('https://t4.ftcdn.net/jpg/02/64/45/15/360_F_264451548_jBnKeAeS8nUWVWDpgbeqZwneFyTTPh0y.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+        .quiz-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1);
+            width: 600px;
+            overflow: hidden;
+        }
+        .quiz-header {
+            padding: 4rem;
+        }
+        h2 {
+            padding: 1rem;
+            text-align: center;
+            margin: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+        ul li label {
+            cursor: pointer;
+        }
+        button {
+            background-color: #03cae4;
+            color: #fff;
+            border: none;
+            display: block;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: inherit;
+            padding: 1.3rem;
+        }
+        button:hover {
+            background-color: #04adc4;
+        }
+        button:focus {
+            outline: none;
+            background-color: #44b927;
+        }
+        .topic-list {
+            list-style-type: none;
+            padding: 1rem;
+            text-align: center;
+        }
+        .topic-list li {
+        font-size: 1.3rem;
+        margin: 1.2rem 0;
+        padding: 1rem;
+        border: 2px solid #b8c1ce;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 300px;
+        height:55px;
+        text-align: center;
+        background-color: #e2eaf5; 
+    }
+    .topic-list li:hover {
+        background: linear-gradient(45deg, #4CAF50, #2196F3);
+        color: #fff;
+    }   
+    </style>
+    <title>Quiz App</title>
+</head>
+<body>
+    <!-- Topic Selection Section -->
+    <div class="topic-container" id="topic">
+        <ul class="topic-list" id="topicList">
+            <li onclick="loadQuiz('programming')">Programming</li>
+            <li onclick="loadQuiz('web')">Web Development</li>
+            <li onclick="loadQuiz('capitals')">Capitals</li>
+            <!-- Add more topics as needed -->
+        </ul>
+    </div>
+    <!-- Quiz Section -->
+    <div class="quiz-container" id="quiz" style="display: none;">
+        <div class="quiz-header">
+            <h2 id="question">Question Text</h2>
+            <ul>
+                <li>
+                    <input type="radio" name="answer" id="a" class="answer">
+                    <label for="a" id="a_text">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" id="b" class="answer">
+                    <label for="b" id="b_text">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" id="c" class="answer">
+                    <label for="c" id="c_text">Answer</label>
+                </li>
+                <li>
+                    <input type="radio" name="answer" id="d" class="answer">
+                    <label for="d" id="d_text">Answer</label>
+                </li>
+            </ul>
+        </div>
+        <button id="submit">Submit</button>
+    </div>
+    <script>
+        const topics = {
+            programming: [
+                {
+                    question: "All keywords in c are?",
+                    a: "Lower case",
+                    b: "Upper case",
+                    c: 'Camel Case',
+                    d: "None",
+                    correct: "a"
+                },
+                {
+                    question: "Which of the following cannot be a variable name in c?",
+                    a: "Volatile",
+                    b: "true",
+                    c: 'friend',
+                    d: "export",
+                    correct: "a"
+                },
+                {
+                    question: "Who invented c++?",
+                    a: "Dennis Ritchie",
+                    b: "Ken Thompson",
+                    c: "Brian Kernighan",
+                    d: "Bjarne Stroustrup",
+                    correct : "d"
+                },
+                {
+                    question: "Which of the following is correct extension of the python file?",
+                    a: ".python",
+                    b: ".pl",
+                    c: ".py",
+                    d: ".p",
+                    correct : "c"
+                },
+            ],
+            capitals: [
+                {
+                    question: "What is the capital of France?",
+                    a: "Paris",
+                    b: "Qatar",
+                    c: 'Amsterdam',
+                    d: "None",
+                    correct: "a"
+                },
+                {
+                    question: "What is the capital of Germany?",
+                    a: "NewYork",
+                    b: "Berlin",
+                    c: 'finland',
+                    d: "Delhi",
+                    correct: "b"
+                },
+                {
+                    question: "What is the capital of Italy?",
+                    a: "Rome",
+                    b: "Berlin",
+                    c: 'finland',
+                    d: "Amsterdam",
+                    correct: "a"
+                },
+                {
+                    question: "What is the capital of India?",
+                    a: "Mumbai",
+                    b: "Banglore",
+                    c: "New Delhi",
+                    d: "Pune",
+                    correct : "c"
+                },
+            ],
+            web: [
+                {
+                    question: "CSS stands for?",
+                    a: "Central Style Sheet",
+                    b: "Cascading Style Sheet",
+                    c: 'Cascading Simple Sheet',
+                    d: "Cascading Style Simple",
+                    correct: "b"
+                },
+                {
+                    question: "Which language runs in a web browser?",
+                    a: "Java",
+                    b: "C",
+                    c: 'Python',
+                    d: "JavaScript",
+                    correct: "d"
+                },  
+                {
+                    question: "What is the purpose of the 'let' keyword in JavaScript?",
+                    a: "To declare a constant variable",
+                    b: "To declare a block-scoped variable",
+                    c: "To declare a global variable",
+                    d: "To declare a variable with function scope",
+                    correct : "b"
+                },                          
+                {
+                    question: "HTML stands for?",
+                    a: "Hypertext Markup Language",
+                    b: "Hypertext Markdown Language",
+                    c: 'Hyperloop Machine Language',
+                    d: "Hypertext Markin Language",
+                    correct: "a"
+                },
+            ],
+        };
+        const topicContainer = document.getElementById('topic');
+        const quizContainer = document.getElementById('quiz');
+        const topicList = document.getElementById('topicList');
+        const quiz = document.getElementById('quiz');
+        const answerEls = document.querySelectorAll('.answer');
+        const questionE1 = document.getElementById('question');
+        const a_text = document.getElementById('a_text');
+        const b_text = document.getElementById('b_text');
+        const c_text = document.getElementById('c_text');
+        const d_text = document.getElementById('d_text');
+        const submitBtn = document.getElementById('submit');
+        let currentTopic;
+        let currentQuiz = 0;
+        let score = 0;
+        function loadQuiz(topic) {
+            currentTopic = topic;
+            currentQuiz = 0;
+            score = 0;
+            topicContainer.style.display = 'none';
+            quizContainer.style.display = 'block';
+            loadQuestion();
+        }
+        function loadQuestion() {
+            deselectAnswers();
+            const currentQuizData = topics[currentTopic][currentQuiz];
+            questionE1.innerText = currentQuizData.question;
+            a_text.innerText = currentQuizData.a;
+            b_text.innerText = currentQuizData.b;
+            c_text.innerText = currentQuizData.c;
+            d_text.innerText = currentQuizData.d;
+        }
+        function deselectAnswers() {
+            answerEls.forEach(answerE1 => (answerE1.checked = false));
+        }
+        function getSelected() {
+            let answer;
+            answerEls.forEach(answerE1 => {
+                if (answerE1.checked) {
+                    answer = answerE1.id;
+                }
+            });
+            return answer;
+        }
+        submitBtn.addEventListener('click', () => {
+            const answer = getSelected();
+            if (answer) {
+                if (answer === topics[currentTopic][currentQuiz].correct) {
+                    score++;
+                }
+                currentQuiz++;
+                if (currentQuiz < topics[currentTopic].length) {
+                    loadQuestion();
+                } else {
+                    showResult();
+                }
+            }
+        });
+        function showResult() {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${topics[currentTopic].length} questions correctly</h2>
+                <button onclick="resetQuiz()">Choose Another Topic</button>`;
+        }
+        function resetQuiz() {
+            topicContainer.style.display = 'flex';
+            quizContainer.style.display = 'none';
+            quiz.innerHTML = '';
+            currentQuiz = 0;
+            score = 0;
+        }
+    </script>
+</body>
+</html>

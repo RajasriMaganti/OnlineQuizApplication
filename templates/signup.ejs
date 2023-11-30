@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('https://static.vecteezy.com/system/resources/previews/023/103/481/original/violet-purple-mountain-landscape-background-abstract-illustration-flat-very-peri-brings-monochrome-mountain-hill-panoramic-scenery-background-free-vector.jpg'); 
+    background-size: cover;
+    background-position: center;
+}
+    .form-container {
+    text-align: center;
+    background:transparent; 
+    border:2px solid rgba(255, 255, 205, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    }
+    h2 {
+    color: #1e0909;
+}
+form {
+    text-align: center; 
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+button.submit-btn {
+    width: 100px;
+    display: inline-block;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #048138;
+    color: #e4e7ea;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; color: #fff; margin-top: 0px;">Online Quiz Application</h1>
+    <div class="form-container">
+        <h2>Sign up</h2>
+        <form action="/login" method="post" id="signup-form">
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+            <button type="submit" class="submit-btn">Signup</button>
+            <p>Already have an account? <a href="login" id="show-login">Login</a></p>
+        </form>
+    </div>
+
+    <script>
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirm-password");
+        const signupForm = document.getElementById("signup-form");
+
+        signupForm.addEventListener("submit", (e) => {
+            if (password.value !== confirmPassword.value) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
